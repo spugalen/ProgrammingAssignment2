@@ -1,15 +1,58 @@
-## Put comments here that give an overall description of what your
-## functions do
+#Function for Lexical Scoping 
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+makeCacheMatrix <- function(x = matrix()) 
+{
+  #inv is initalized to null
+  inv <- NULL
+  
+  #Setting the value of y to x
+  set <- function(y) 
+  {
+    x <<- y
+    inv <<- NULL
+  }
+  
+  #Get the value of x
+  get <- function() 
+  {
+    x
+  }
+  
+  #Setting the inverse 
+  setinv <- function(i) 
+  {
+    inv <<- i
+  }
+  #Getting the inverse
+  getinv <- function()
+  {
+    inv
+  }
+  #List of options to be done 
+  list(set = set,
+       get = get,
+       setinv = setinv,
+       getinv = getinv)    
+   }
+  #cachesolve is used to find the inverse of the matrix
+  cacheSolve <- function(x, ...)
+  {
+  
+     inv <- x$getinv()
+     #Checking for null value 
+     if(!is.null(inv)) 
+     {
+    
+        message("Try to get cached inverse value")
+        return(inv)
+      }
+  
+  #Setting the matrix
+  matr <- x$get()
+  #Returing the matrix in inverse form
+  inv <- solve(matr, ...)
+  #Setting the inverse matrix
+  x$setinv(inv)
+  #Returning the inverse matrix
+  return(inv)
 }
